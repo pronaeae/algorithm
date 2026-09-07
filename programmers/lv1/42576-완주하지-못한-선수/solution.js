@@ -9,7 +9,37 @@
  */
 
 function solution(participant, completion) {
-  // 여기를 채우세요
+  // DB에 저장하 듯 {index, userName} 으로 자료구조를 변환한다.
+  // completion 을 순회하며 지운다...
+  // 는 브루스포스라서 오래걸릴 듯?
+  
+  // 해시맵을 만들어 해당 유저 수만큼 {userName , count}를 한다.
+  // completion에 userName이 나오면 count를 -1 한다.
+  // count > 0 인 userName을 출력한다
+  // 는 동명이인인데 어떤 사람인지 판단이 안되긴 한데 이걸로 해보는게?
+
+  const hash = new Map();
+
+  for(const userName of participant){
+    const hasUser = hash.has(userName);
+    
+    if(hasUser){
+      const currentUser = hash.get(userName);
+      hash.set(userName, currentUser + 1);
+    } else {
+      hash.set(userName, 1);
+    };
+  };
+  
+  for(const userName of completion){
+    const user = hash.get(userName)
+    hash.set(userName, user - 1);
+  };
+
+  // count > 0 인 선수를 찾으면 그게 완주하지 못한 선수
+  for (const [userName, count] of hash.entries()) {
+    if (count > 0) return userName;
+  }
 }
 
 // ── 아래는 테스트 러너. 건드리지 않아도 된다 ──────────────────────────
