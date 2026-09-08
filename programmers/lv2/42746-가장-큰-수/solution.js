@@ -9,7 +9,11 @@
  */
 
 function solution(numbers) {
-  // 여기를 채우세요
+  const answer = numbers.map((number) => String(number))
+  .sort((a,b) => (b+a)-(a+b))
+  .join('')
+
+  return answer[0] === '0' ? '0' : answer
 }
 
 // ── 아래는 테스트 러너. 건드리지 않아도 된다 ──────────────────────────
