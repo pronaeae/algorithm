@@ -9,7 +9,34 @@
  */
 
 function solution(progresses, speeds) {
-  // 여기를 채우세요
+  // progresses를 speeds로 몫을 구하고 올림 처리를 하여 소요 시간을 계산하고
+  // days = [7,3,9]
+  const days = progresses.map((progress,i) => Math.ceil((100 - progress) / speeds[i]))
+  
+  let count = 0;
+
+  // 최대 일 수가 100일;
+  let value = 100;
+  const result = [];
+
+  for(const day of days){
+    // day가 value보다 이하 count 증가
+    if(day <= value){
+      count += 1
+      value = day
+    }
+
+    // day가 value보다 크면 
+    // 1. result에 count를 기록
+    // 2. count = 1 
+    if(day > value){
+      result.push(count);
+      count = 1
+    }
+  }
+  result.push(count);
+
+  return result
 }
 
 // ── 아래는 테스트 러너. 건드리지 않아도 된다 ──────────────────────────
@@ -54,6 +81,20 @@ const cases = [
     progresses: [90, 90],
     speeds: [10, 10],
     expected: [2],
+  },
+  // days [5, 10, 7] — 느려졌다가 다시 빨라진다.
+  // 10일짜리로 새 묶음이 시작되면 7일짜리는 거기에 딸려 나가야 한다.
+  {
+    progresses: [95, 90, 93],
+    speeds: [1, 1, 1],
+    expected: [1, 2],
+  },
+  // days [7, 3, 5] — 묶음의 기준일은 "직전 작업"이 아니라 "묶음의 첫 작업"이다.
+  // 기준을 3으로 낮추면 5가 새 묶음이 되어 버린다.
+  {
+    progresses: [93, 97, 95],
+    speeds: [1, 1, 1],
+    expected: [3],
   },
 ];
 
