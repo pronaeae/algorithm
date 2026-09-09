@@ -14,24 +14,20 @@ function solution(progresses, speeds) {
   const days = progresses.map((progress,i) => Math.ceil((100 - progress) / speeds[i]))
   
   let count = 0;
-
-  // 최대 일 수가 100일;
-  let value = 100;
+  let value = days[0];
   const result = [];
 
   for(const day of days){
     // day가 value보다 이하 count 증가
     if(day <= value){
       count += 1
-      value = day
-    }
-
-    // day가 value보다 크면 
-    // 1. result에 count를 기록
-    // 2. count = 1 
-    if(day > value){
+    } else {
+      // day가 value보다 크면 
+      // 1. result에 count를 기록
+      // 2. count = 1 
       result.push(count);
       count = 1
+      value = day;
     }
   }
   result.push(count);
