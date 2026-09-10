@@ -11,8 +11,29 @@
  */
 
 function solution(numbers, target) {
-  // 여기를 채우세요
+  let count = 0;
+  
+  // 1. dfs 작성
+  function dfs(sum, index){
+    // 2.종료조건
+    if(index === numbers.length){
+      // 3.count가 증가하는 시점
+      if(sum === target){
+        count++
+      }
+      return;
+    }
+    // 4.실행
+    dfs(sum + numbers[index] , index + 1)
+    dfs(sum - numbers[index] , index + 1)
+  }
+
+  dfs(0,0);
+
+  return count
 }
+
+
 
 // ── 아래는 테스트 러너. 건드리지 않아도 된다 ──────────────────────────
 
